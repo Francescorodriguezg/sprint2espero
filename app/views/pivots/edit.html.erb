@@ -1,0 +1,42 @@
+<h1>Editing Pivot</h1>
+
+<%= form_for(@pivot) do |f| %>
+    
+    <div>
+      <%= f.label :nombre_del_club %>
+      <%= f.text_field :club_name, :value => @pivot.club_name, :readonly => true%>
+    </div>
+    <div>
+      <%= f.label :club_address %>
+      <%= f.text_field :club_address, :value => @pivot.club_address, :readonly => true %>
+    </div>
+    <div>
+      <%= f.label :sport_name %>
+      <%= f.text_field :sport_name, :value => @pivot.sport_name, :readonly => true %>
+    </div>
+    
+    <% if current_user.moderator == true %>
+
+    <div>
+        <%= f.select :status, [ 'pending', 'accepted', 'denied'], :prompt => 'Select One' %><br>
+    </div>
+    <% end %>
+    <% if current_user.moderator == false %>
+
+    <div>
+        <%= f.select :status, [ 'pending', 'denied'], :prompt => 'Select One' %><br>
+    </div>
+    <% end %>
+    
+    
+    
+    
+    <div>
+      <%= f.submit %>
+      
+        
+      
+    </div>
+
+<% end %>
+<%= link_to 'Back', pivots_path %>

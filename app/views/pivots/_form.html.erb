@@ -1,0 +1,41 @@
+<%= form_with(model: pivot) do |form| %>
+  <% if pivot.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pivot.errors.count, "error") %> prohibited this pivot from being saved:</h2>
+
+      <ul>
+        <% pivot.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+
+  <div>
+    <%= form.label :club_name%>
+    <%= form.text_field :club_name%>
+  </div>
+
+  <div>
+    <%= form.label :sport_name%>
+    <%= form.text_field :sport_name%>
+  </div>
+
+  <div>
+    <%= form.label :club_address%>
+    <%= form.text_field :club_address%>
+  </div>
+
+  <%if user_moderator%>
+    <div>
+      <%= form.label :status%>
+      <%= form.select :status, options_for_select([['accepted'], ['denied']], :selected => :status) %>
+    </div>
+  <%end%>
+
+
+    <%= form.submit %>
+  </div>
+<% end %>

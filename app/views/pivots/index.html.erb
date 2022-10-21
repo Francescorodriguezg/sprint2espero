@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reservas</h1>
+
+
+
+
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th> Usuario </th>
+      <th> Club </th>
+      <th> Direccion </th>
+      <th> Deporte </th>
+      <th> Status </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pivots.each do |pivot| %>
+      <div>
+      <tr>
+      <td><%= pivot.user.email%></td>
+      <td><%= pivot.club_name%></td>
+      <td><%= pivot.club_address%></td>
+      <td><%= pivot.sport_name%></td>
+      <td><%= pivot.status%></td>
+      <td><%= link_to 'Destroy', pivot, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Editar Status', edit_pivot_path(pivot)%></td>
+      <td><%= link_to 'Enviar Mensaje', new_response_path(:user_id => pivot.user_id, :user_moderator => pivot.moderador_id)  %></td>
+      </tr>
+      </div> 
+    <% end %>
+  </tbody>
+</table>
+<td><%= link_to 'Volver a publicaciones', publications_path %></td>
+<br>
+
+

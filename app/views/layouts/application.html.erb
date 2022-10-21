@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EasyCancha</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%if user_signed_in?%>
+      <%if current_user.moderator%>
+        Tipo: Moderador
+        <%elsif  current_user.admin%>
+        Tipo: Administrador
+        <%elsif  current_user%>
+        Tipo: Usuario
+      <%end%>
+    <%end%><br>
+    <% if user_signed_in? %>
+      <%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %>
+      <%= link_to 'Edit User', edit_user_registration_path%>
+    <%else%>
+      <%= link_to 'Sign in', new_user_session_path%>
+      <%= link_to 'Sign up', new_user_registration_path%>
+      
+
+    <%end%>
+    <%if user_moderator %>
+      <%=link_to 'Reservas por moderar', pivots_path%>
+      <%= link_to 'Bandeja de Entrada', responses_path%>
+    <%end%>
+    <%if user_moderator == false && user_admin == false %>
+      <%=link_to 'Mis reservas', pivots_path%>
+      <%=link_to 'Bandeja de Entrada', responses_path%>
+
+    <%end%>
+    <%= yield %>
+  </body>
+</html>

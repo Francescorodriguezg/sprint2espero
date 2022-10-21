@@ -1,0 +1,32 @@
+<h1>New Pivot</h1>
+
+
+
+<%= form_with scope: :pivot, url: create_pivot_path, local: false do |f| %>
+    
+    <div>
+      <%= f.label :nombre_del_club %>
+      <%= f.text_field :club_name, :value => params[:club_name], :readonly => true%>
+    </div>
+    <div>
+      <%= f.label :club_address %>
+      <%= f.text_field :club_address, :value => params[:club_address], :readonly => true %>
+    </div>
+    <div>
+      <%= f.label :sport_name %>
+      <%= f.text_field :sport_name, :value => params[:sport_name], :readonly => true %>
+    </div>
+    <div>
+      <%= f.label :date_time, 'Fecha y hora DD/MM/YYYY HH:MM' %>
+      <%= f.text_field :date_time %>
+    </div>
+    
+    
+    
+    
+    <div>
+      <%= f.submit "Reservar Cancha"%>
+    </div>
+
+<% end %>
+<%= link_to 'Back', pivots_path %>

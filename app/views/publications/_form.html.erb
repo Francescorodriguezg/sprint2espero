@@ -1,0 +1,20 @@
+<%= form_with scope: :request, url: create_request_path, local: false do |f| %>
+
+    <div>
+      <%= f.label :message %><br>
+      <%= f.text_area :message %>
+    </div>
+
+    <% if user_moderator %>
+      <div>
+        <%= f.label :status %>
+        <%= f.select :status, [ 'pending', 'accepted', 'denied'], :prompt => 'Select One' %>
+      </div>
+    <% end %>
+
+
+    <div>
+      <%= f.submit %>
+    </div>
+
+<% end %>

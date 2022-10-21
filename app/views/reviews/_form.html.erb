@@ -1,0 +1,6 @@
+<h1>this is the review form</h1>
+<%= form_for [@publication, @review] do |f| %>
+    <%= f.label :review %>
+    <%= f.text_field :review %>
+    <%= f.submit %>
+<% end %>

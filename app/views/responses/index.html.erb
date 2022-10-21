@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1 align = 'center', class ="p-3 mb-2 bg-light text-dark">Mensajes</h1>
+
+<table align='center'>
+  <tr>
+  <thead>
+  
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  </tr>
+
+  <tbody>
+    <% @responses.each do |response| %>
+      <%if current_user.id == response.message_for%>
+      <%if response.user_id == response.message_for%>
+        <h5>De: <%= User.find(response.user_moderator.to_i).email %></h5>
+      <%end%>
+      <%if response.user_moderator == response.message_for%>
+      
+        <h5>De: <%= User.find(response.user_id).email %></h5>
+        
+      <%end%>
+      
+      <h5>Mensaje: <%=response.message%></h5>
+      
+      
+      <%if user_moderator == true%>
+        <%= link_to 'Enviar Mensaje a usuario', new_response_path(:user_id => response.user_id, :user_moderator => response.user_moderator)  %>
+      <%end%>
+      <%if not user_moderator == true%>
+        <%= link_to 'Enviar Mensaje a moderador', new_response_path(:user_id => response.user_id, :user_moderator => response.user_moderator)  %>
+      <%end%>
+      
+      
+        <p><%= link_to 'Show', response %>  <%= link_to 'Edit', edit_response_path(response) %> <%= link_to 'Destroy', response, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+        
+       
+      
+      
+      <% end %>
+      
+      
+    <% end %>
+    <%= link_to 'Volver a Publicaciones', publications_path %>
+  </tbody>
+</table>
+
+<br>
+
+

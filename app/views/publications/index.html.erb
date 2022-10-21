@@ -1,0 +1,56 @@
+
+
+
+<!--Si el user es administrador-->
+<%if user_admin%>
+<p align = 'center'>
+<%= link_to 'create publication', new_publication_path, :class=>"p-3 mb-2 bg-light text-dark" %><br>
+</p>
+<%end%>
+
+<table align='center', class ="table table-hover table-dark">
+  <tr>
+    <thead>
+      <th>ID de publicacion</th>
+      <th>Nombre del club</th>
+      <th>Direccion del club</th>
+      <th>Deporte</th>
+      
+      <% if user_admin == false && user_moderator == false%>
+      <th>Boton 1</th>
+      <th>Boton 2</th>
+      
+      <%end%>
+      
+      <% if user_admin == true%>
+      <th>Boton 1</th>
+      <%end%>
+      <th>Reviews: </th>
+      </thead>
+  </tr>
+    
+
+
+<% @publications.each do |publication| %>
+  <div>
+  <tr>
+  <td><%= publication.id %></td>
+  <td><%= publication.club_name %></td>
+  <td><%= publication.club_address %></td>
+  <td><%= publication.sport_name %></td>
+  
+  
+  <% if user_admin == false && user_moderator == false%>
+    <td><%= link_to 'reservar', create_pivot_path(:club_name => publication.club_name, :club_address => publication.club_address, :sport_name => publication.sport_name)  %></td>
+    <td><%= link_to 'new_review', new_publication_review_path(publication) %></td>
+  <%end%>
+  <% if user_admin == true%>
+  <td><%= link_to 'Destroy', publication, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <%end%>
+  <% publication.reviews.each do |r| %>
+    
+    <td><%= r.review %></td>
+  <%end%>
+  </tr>
+  </div>
+<% end %>
